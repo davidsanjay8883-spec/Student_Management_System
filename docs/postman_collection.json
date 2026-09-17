@@ -1,0 +1,463 @@
+{
+  "info": {
+    "name": "Student Management System API",
+    "description": "CRUD, validation and error-handling tests for the Student Management System.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. CRUD operations",
+      "item": [
+        {
+          "name": "Create student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                ""
+              ]
+            },
+            "description": "Expect 201 Created.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roll_number\": \"21CSE045\",\n  \"full_name\": \"Anitha Ramesh\",\n  \"email\": \"anitha.r@example.edu\",\n  \"phone\": \"9876543210\",\n  \"department\": \"CSE\",\n  \"year_of_study\": 3,\n  \"cgpa\": \"8.75\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Read all students",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                ""
+              ]
+            },
+            "description": "Expect 200 with a JSON array."
+          },
+          "response": []
+        },
+        {
+          "name": "Read one student",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "1",
+                ""
+              ]
+            },
+            "description": "Expect 200 with a single object."
+          },
+          "response": []
+        },
+        {
+          "name": "Update student (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "1",
+                ""
+              ]
+            },
+            "description": "Expect 200 with the updated CGPA.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roll_number\": \"21CSE045\",\n  \"full_name\": \"Anitha Ramesh\",\n  \"email\": \"anitha.r@example.edu\",\n  \"phone\": \"9876543210\",\n  \"department\": \"CSE\",\n  \"year_of_study\": 3,\n  \"cgpa\": \"9.10\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update student (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "1",
+                ""
+              ]
+            },
+            "description": "Expect 200.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"year_of_study\": 4\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete student",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "1",
+                ""
+              ]
+            },
+            "description": "Expect 200 with a confirmation message."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Search and filter",
+      "item": [
+        {
+          "name": "Search by name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/?search=anitha",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "?search=anitha",
+                ""
+              ]
+            },
+            "description": "Expect only matching records."
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by department",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/?department=CSE",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "?department=CSE",
+                ""
+              ]
+            },
+            "description": "Expect only CSE records."
+          },
+          "response": []
+        },
+        {
+          "name": "Sort by CGPA descending",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/?ordering=-cgpa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "?ordering=-cgpa",
+                ""
+              ]
+            },
+            "description": "Expect highest CGPA first."
+          },
+          "response": []
+        },
+        {
+          "name": "Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/stats/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stats",
+                ""
+              ]
+            },
+            "description": "Expect totals and average CGPA."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Validation and error handling",
+      "item": [
+        {
+          "name": "Create with missing field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                ""
+              ]
+            },
+            "description": "Expect 400 naming full_name.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roll_number\": \"21CSE045\",\n  \"email\": \"anitha.r@example.edu\",\n  \"phone\": \"9876543210\",\n  \"department\": \"CSE\",\n  \"year_of_study\": 3,\n  \"cgpa\": \"8.75\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create with invalid email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                ""
+              ]
+            },
+            "description": "Expect 400 naming email.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roll_number\": \"21CSE099\",\n  \"full_name\": \"Anitha Ramesh\",\n  \"email\": \"not-an-email\",\n  \"phone\": \"9876543210\",\n  \"department\": \"CSE\",\n  \"year_of_study\": 3,\n  \"cgpa\": \"8.75\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create with duplicate roll number",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                ""
+              ]
+            },
+            "description": "Run after Create student. Expect 400 naming roll_number.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roll_number\": \"21CSE045\",\n  \"full_name\": \"Anitha Ramesh\",\n  \"email\": \"someone.else@example.edu\",\n  \"phone\": \"9876543210\",\n  \"department\": \"CSE\",\n  \"year_of_study\": 3,\n  \"cgpa\": \"8.75\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create with CGPA above 10",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                ""
+              ]
+            },
+            "description": "Expect 400 naming cgpa.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roll_number\": \"21CSE100\",\n  \"full_name\": \"Anitha Ramesh\",\n  \"email\": \"high.cgpa@example.edu\",\n  \"phone\": \"9876543210\",\n  \"department\": \"CSE\",\n  \"year_of_study\": 3,\n  \"cgpa\": \"12.50\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create with year out of range",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                ""
+              ]
+            },
+            "description": "Expect 400 naming year_of_study.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roll_number\": \"21CSE101\",\n  \"full_name\": \"Anitha Ramesh\",\n  \"email\": \"bad.year@example.edu\",\n  \"phone\": \"9876543210\",\n  \"department\": \"CSE\",\n  \"year_of_study\": 7,\n  \"cgpa\": \"8.75\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Read non-existent ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/9999/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "9999",
+                ""
+              ]
+            },
+            "description": "Expect 404."
+          },
+          "response": []
+        },
+        {
+          "name": "Update non-existent ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students/9999/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "9999",
+                ""
+              ]
+            },
+            "description": "Expect 404.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roll_number\": \"21CSE045\",\n  \"full_name\": \"Anitha Ramesh\",\n  \"email\": \"anitha.r@example.edu\",\n  \"phone\": \"9876543210\",\n  \"department\": \"CSE\",\n  \"year_of_study\": 3,\n  \"cgpa\": \"8.75\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete non-existent ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/9999/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "9999",
+                ""
+              ]
+            },
+            "description": "Expect 404."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

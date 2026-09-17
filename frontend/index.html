@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Student Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="masthead">
+  <h1>Student register</h1>
+  <p class="ledger-line" id="summary">Loading records&hellip;</p>
+</header>
+
+<main class="workspace">
+
+  <!-- ------------------------------------------------ form panel -->
+  <section class="panel" aria-labelledby="form-heading">
+    <h2 id="form-heading">Add a student</h2>
+
+    <form id="student-form" novalidate>
+      <input type="hidden" id="student-id" />
+
+      <div class="field">
+        <label for="roll_number">Roll number</label>
+        <input type="text" id="roll_number" name="roll_number" placeholder="21CSE045" required />
+        <small class="error" data-error-for="roll_number"></small>
+      </div>
+
+      <div class="field">
+        <label for="full_name">Full name</label>
+        <input type="text" id="full_name" name="full_name" placeholder="Anitha Ramesh" required />
+        <small class="error" data-error-for="full_name"></small>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="anitha.r@example.edu" required />
+        <small class="error" data-error-for="email"></small>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone <span class="optional">optional</span></label>
+        <input type="tel" id="phone" name="phone" placeholder="9876543210" maxlength="10" />
+        <small class="error" data-error-for="phone"></small>
+      </div>
+
+      <div class="field">
+        <label for="department">Department</label>
+        <select id="department" name="department" required>
+          <option value="">Choose a department</option>
+          <option value="CSE">Computer Science and Engineering</option>
+          <option value="IT">Information Technology</option>
+          <option value="ECE">Electronics and Communication</option>
+          <option value="EEE">Electrical and Electronics</option>
+          <option value="MECH">Mechanical Engineering</option>
+          <option value="CIVIL">Civil Engineering</option>
+        </select>
+        <small class="error" data-error-for="department"></small>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="year_of_study">Year</label>
+          <select id="year_of_study" name="year_of_study" required>
+            <option value="">—</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+          <small class="error" data-error-for="year_of_study"></small>
+        </div>
+
+        <div class="field">
+          <label for="cgpa">CGPA</label>
+          <input type="number" id="cgpa" name="cgpa" step="0.01" min="0" max="10" placeholder="8.75" required />
+          <small class="error" data-error-for="cgpa"></small>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-primary" id="submit-button">Save student</button>
+        <button type="button" class="btn-quiet hidden" id="cancel-button">Cancel edit</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ------------------------------------------------ register -->
+  <section class="register" aria-labelledby="register-heading">
+    <div class="register-head">
+      <h2 id="register-heading">Records</h2>
+      <div class="filters">
+        <input type="search" id="search" placeholder="Search name, roll number or email" aria-label="Search students" />
+        <select id="filter-department" aria-label="Filter by department">
+          <option value="">All departments</option>
+          <option value="CSE">CSE</option>
+          <option value="IT">IT</option>
+          <option value="ECE">ECE</option>
+          <option value="EEE">EEE</option>
+          <option value="MECH">MECH</option>
+          <option value="CIVIL">CIVIL</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table id="student-table">
+        <thead>
+          <tr>
+            <th scope="col">Roll number</th>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+            <th scope="col" class="num">Year</th>
+            <th scope="col" class="num">CGPA</th>
+            <th scope="col"><span class="sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody id="student-rows"></tbody>
+      </table>
+    </div>
+
+    <p class="state" id="state-message"></p>
+  </section>
+
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
